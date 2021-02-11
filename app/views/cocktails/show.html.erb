@@ -1,0 +1,21 @@
+<div class="banner" id="show" style="background-image: linear-gradient(rgba(2, 26, 58, 0.5), rgba(2, 26, 58, 0.5)), url('http://orig05.deviantart.net/b424/f/2016/258/0/5/rick_and_morty_background_no_4_by_jurokoo-dahrvd7.png');">
+  <h1><%= @cocktail.name %></h1>
+
+  <ul>
+  <% @cocktail.doses.each do |d|  %>
+    <li><%= d.ingredient.name %> : <%= d.description %> | <%= link_to "Delete", dose_path(d), method: :delete, data: { confirm: "Are you sure?" }  %></li>
+  <% end %>
+  </ul>
+  <%= simple_form_for [@cocktail, @dose] do |f| %>
+  <div class="form-row">
+    <h2>Ingredient</h2>
+    <%= f.input :ingredient_id, label: false, collection: @ingredients %>
+  </div>
+  <div class="form-row">
+    <h2>Explain it to Morty</h2>
+    <%= f.input :description, label: false  %>
+  </div>
+    <%= f.submit "Add dose"%>
+  <% end %>
+  <h2><%= link_to "Back to cocktail list", cocktails_path %></h2>
+</div>
